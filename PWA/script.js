@@ -11,7 +11,7 @@ if ('serviceWorker' in navigator) {
 	  if (Notification.permission == 'granted') {
 		navigator.serviceWorker.getRegistration().then(function(reg) {
 		  var options = {
-			body: 'Here is a notification body!',
+			body: 'Soy una notificación de las ' + Date.now(),
 			icon: 'img/jr.png',
 			vibrate: [100, 50, 100],
 			data: {
@@ -25,4 +25,15 @@ if ('serviceWorker' in navigator) {
 	}
 	
 	displayNotification();
+	
+	setTimeout(function() {
+		var d = new Date();
+		if(d.getMinutes() === 00) {
+			displayNotification();
+		}
+	}, 1000 * 60);
+	
+	
+	//const applicationServerPublicKey = '<Your Public Key>';
+	
 }
