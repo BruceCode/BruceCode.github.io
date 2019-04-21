@@ -5,7 +5,7 @@ const CACHE_NAME = 'cache_test_PWA',
     './',
     './style.css',
     './script.js',
-    './img/ProgramadorFitness.png',
+    './img/jr.png',
     './img/favicon.png'
   ]
 
