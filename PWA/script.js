@@ -33,10 +33,10 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
 	}
 	
 	self.addEventListener('sync', function(event) {
-		if (event.tag == 'myFirstSync') {
+		if (event.tag === 'myFirstSync') {
 			event.waitUntil(displayNotification('Estoy conectado'));
 		}
 	});
 	
-	//displayNotification('Soy un mensaje');
+	displayNotification('Soy un mensaje');
 }
