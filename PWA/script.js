@@ -1,17 +1,25 @@
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js')
-    .then(reg => console.log('Registro de SW exitoso', reg))
+if ('serviceWorker' in navigator && 'PushManager' in window) {
+	navigator.serviceWorker.register('./sw.js')
+    .then(reg => {
+		console.log('Registro de SW exitoso', reg)
+		swRegistration = swReg;
+		initializeUI();
+	})
     .catch(err => console.warn('Error al tratar de registrar el sw', err))
+    
+    navigator.serviceWorker.ready.then(function(swRegistration) {
+		return swRegistration.sync.register('myFirstSync');
+	});
     
     Notification.requestPermission(function(status) {
 		console.log('Notification permission status:', status);
 	});
 	
-	function displayNotification() {
+	function displayNotification(cuerpoMensaje) {
 	  if (Notification.permission == 'granted') {
 		navigator.serviceWorker.getRegistration().then(function(reg) {
 		  var options = {
-			body: 'Soy una notificación de las ' + Date.now(),
+			body: cuerpoMensaje,
 			icon: 'img/jr.png',
 			vibrate: [100, 50, 100],
 			data: {
@@ -19,21 +27,16 @@ if ('serviceWorker' in navigator) {
 			  primaryKey: 1
 			}
 		  };
-		  reg.showNotification('Hello world!', options);
+		  reg.showNotification('Mensaje', options);
 		});
 	  }
 	}
 	
-	displayNotification();
-	
-	setTimeout(function() {
-		var d = new Date();
-		if(d.getMinutes() === 00) {
-			displayNotification();
+	self.addEventListener('sync', function(event) {
+		if (event.tag == 'myFirstSync') {
+			event.waitUntil(displayNotification('Estoy conectado'));
 		}
-	}, 1000 * 60);
+	});
 	
-	
-	//const applicationServerPublicKey = '<Your Public Key>';
-	
+	//displayNotification('Soy un mensaje');
 }
