@@ -38,5 +38,5 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
 		}
 	});
 	
-	displayNotification('Soy un mensaje');
+	displayNotification('Soy una notificación');
 }
