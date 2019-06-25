@@ -10,11 +10,13 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
     navigator.serviceWorker.ready.then(function(swRegistration) {
 		return swRegistration.sync.register('myFirstSync');
 	});
-    
+/* 
     Notification.requestPermission(function(status) {
 		console.log('Notification permission status:', status);
 	});
-	
+*/
+
+/*
 	function displayNotification(cuerpoMensaje) {
 	  if (Notification.permission == 'granted') {
 		navigator.serviceWorker.getRegistration().then(function(reg) {
@@ -31,6 +33,7 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
 		});
 	  }
 	}
+*/
 	
 	self.addEventListener('sync', function(event) {
 		if (event.tag === 'myFirstSync') {
