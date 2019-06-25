@@ -42,5 +42,5 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
 	});
 	
 	displayNotification('Soy una notificación');
-}
 */
+}
